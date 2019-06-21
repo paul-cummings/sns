@@ -70,7 +70,7 @@ Then(/^I should see "([^"]*)" in queue "([^"]*)"$/) do |message, queue_url|
       found = true
       $SQS.delete_message({
                             queue_url: queue_url,
-                            receipt_hle: m.receipt_handle,
+                            receipt_handle: m.receipt_handle,
                           })
     end
   end
