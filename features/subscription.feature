@@ -37,5 +37,6 @@ Feature: Subscription
     Given I create a new topic "cucumber5"
     And I subscribe endpoint "http://example.com" with protocol "http" to topic "cucumber5" as "subscription"
     And I set "RawMessageDelivery" for "subscription" to "true"
+    And I set "FilterPolicy" for "subscription" to "cluster"
     And I get subscription attributes for "subscription"
     Then I see attribute "RawMessageDelivry" with value "true"

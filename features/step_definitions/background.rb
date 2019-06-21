@@ -56,7 +56,7 @@ end
 Given('AWS SQS client') do
   config = {
     region: 'us-east-1',
-    endpoint: 'http://localhost:9324',
+    endpoint: 'http://localhost:4576',
   }
 
   $SQS = Aws::SQS::Client.new(config)

@@ -7,13 +7,6 @@ Feature: SQS Integration
       And AWS SQS client
       And I purge queue "http://localhost:4576?QueueName=queue1"
 
-#  Scenario: Filter
-#    Given I create a new topic "test0"
-#    And I subscribe end point "aws-sqs://local-catalog-updates-etl-prr-c1-high?amazonSQSEndpoint=http://sqs:4576&accessKey=&secretKey=
-#    And I set "FilterPolicy" for "subscription" to "cluster:c1"
-#    When I publish a message to topic "test0"
-#    Then the message should be received by "queue"
-
   Scenario: Publish
     Given I create a new topic "test1"
     And I subscribe endpoint "file://tmp?fileName=sns.log" with protocol "file" to topic "test1"
@@ -43,6 +36,13 @@ Feature: SQS Integration
       "hello, world!": true
     }
     """
+
+#  Scenario: Filter
+#    Given I create a new topic "test0"
+#    And I subscribe end point "aws-sqs://local-catalog-updates-etl-prr-c1-high?amazonSQSEndpoint=http://sqs:4576&accessKey=&secretKey=
+#    And I set "FilterPolicy" for "subscription" to "cluster:c1"
+#    When I publish a message to topic "test0"
+#    Then the message should be received by "queue"
 
   Scenario: Message Attributes
     Given I create a new topic "test3"
