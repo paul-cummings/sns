@@ -37,13 +37,6 @@ Feature: SQS Integration
     }
     """
 
-#  Scenario: Filter
-#    Given I create a new topic "test0"
-#    And I subscribe end point "aws-sqs://local-catalog-updates-etl-prr-c1-high?amazonSQSEndpoint=http://sqs:4576&accessKey=&secretKey=
-#    And I set "FilterPolicy" for "subscription" to "cluster:c1"
-#    When I publish a message to topic "test0"
-#    Then the message should be received by "queue"
-
   Scenario: Message Attributes
     Given I create a new topic "test3"
     And I subscribe endpoint "aws-sqs://queue1?amazonSQSEndpoint=http://localhost:4576&accessKey=&secretKey=" with protocol "sqs" to topic "test3" as "subscription"
@@ -52,7 +45,6 @@ Feature: SQS Integration
       | Name       | Data Type | String Value |
       | Trace-Id   | String    | 123456       |
       | Logging-Id | String    | EFGADBC      |
-#      | Cluster    | String    | c1           |
     Then The publish request should be successful
     And I wait for 1 seconds
     And I get the message in queue "http://localhost:4576?QueueName=queue1"
@@ -62,4 +54,16 @@ Feature: SQS Integration
     """
     And the message attribute "Trace-Id" should be "123456"
     And the message attribute "Logging-Id" should be "EFGADBC"
-#    And the message attribute "Cluster" should be "c1"
+
+  Scenario: Filter
+    Given I create a new topic "local-catalog-updates"
+    And I subscribe endpoint "http://localhost:4576/queues" with protocol "sqs" to topic "local-catalog-updates" as "subscription"
+    And I set "FilterPolicy" for "subscription" to "cluster:c1"
+    When I publish "Hello c1" to topic "local-catalog-updates" with attributes:
+      | Name       | Data Type | String Value |
+      | cluster    | String    | c1           |
+    Then the message body should be:
+    """
+    Hello c1
+    """
+    And the message attribute "cluster" should be "c1"
