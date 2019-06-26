@@ -74,8 +74,11 @@ Then(/^I should see "([^"]*)" in queue "([^"]*)"$/) do |message, queue_url|
                           })
     end
   end
-
-  expect(found).to be true
+  if @response.attributes != string_value
+    expect(found).to be false
+  else
+    expect(found).to be true
+  end 
 end
 
 Then(/^I get the message in queue "([^"]*)"$/) do |queue_url|

@@ -59,9 +59,9 @@ Feature: SQS Integration
     Given I create a new topic "test4"
     And I subscribe endpoint "aws-sqs://local-catalog-updates-etl-prr-c1-high?amazonSQSEndpoint=http://sqs:4576&accessKey=&secretKey=" with protocol "sqs" to topic "test4" as "subscription"
     And I set "FilterPolicy" for "subscription" to "c1"
-    When I publish "Hello Test" to topic "teset4" with attributes:
+    When I publish "Hello Test" to topic "test4" with attributes:
       | Name       | Data Type | String Value |
-      | cluster    | String    | c1           |
+      | cluster    | String    | c2           |
     Then The publish request should be successful
     And I wait for 1 seconds
     And I get the message in queue "http://sqs:4576/queue/local-catalog-updates-etl-prr-c1-high"
