@@ -61,7 +61,7 @@ Feature: SQS Integration
     And I set "FilterPolicy" for "subscription" to "c1"
     When I publish "Hello Test" to topic "test4" with attributes:
       | Name       | Data Type | String Value |
-      | cluster    | String    | c2           |
+      | cluster    | String    | c1           |
     Then The publish request should be successful
     And I wait for 1 seconds
     And I get the message in queue "http://sqs:4576/queue/local-catalog-updates-etl-prr-c1-high"

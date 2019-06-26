@@ -78,7 +78,7 @@ Then(/^I should see "([^"]*)" in queue "([^"]*)"$/) do |message, queue_url|
     expect(found).to be false
   else
     expect(found).to be true
-  end 
+  end
 end
 
 Then(/^I get the message in queue "([^"]*)"$/) do |queue_url|

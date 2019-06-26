@@ -73,6 +73,4 @@ end
 
 Then("I see attribute {string} with value {string}") do |name, value|
   @response.attributes[name] == value
-  if @response.attributes["cluster"] == "c1"
-  end
 end
