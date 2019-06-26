@@ -17,7 +17,7 @@ RUN apk -Uuv add python py-pip && \
 	apk --purge -v del py-pip && \
 	rm /var/cache/apk/*
 
-ARG JAR=undefined
+ARG JAR=sns.jar
 
 ADD $JAR /sns.jar
 
