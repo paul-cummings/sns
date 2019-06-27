@@ -6,16 +6,32 @@ When(/^I publish a message to topic "([^"]*)":?$/) do |topic, message|
   @response = $SNS.publish(topic_arn: get_arn(topic), message: message)
 end
 
+# When(/^I publish "([^"]*)" to topic "([^"]*)" with attributes:$/) do |message, topic, attribute_table|
+#   attributes={}
+#   attribute_table.hashes.each do |row|
+#     attributes[row['Name']] = {
+#       data_type: row['Data Type'],
+#       string_value: row['String Value']
+#     }
+#   end
+#   @response = $SNS.publish(topic_arn: get_arn(topic), message: message, message_attributes: attributes)
+# end
+
 When(/^I publish "([^"]*)" to topic "([^"]*)" with attributes:$/) do |message, topic, attribute_table|
   attributes={}
   attribute_table.hashes.each do |row|
     attributes[row['Name']] = {
-      data_type: row['Data Type'],
-      string_value: row['String Value']
+        data_type: row['Data Type'],
+        string_value: row['String Value']
     }
   end
-  @response = $SNS.publish(topic_arn: get_arn(topic), message: message, message_attributes: attributes)
-end
+  @response = $SNS.get_subscription_attributes({subscription_arn: @namedSubscriptionArns[name]})
+  if @namedSubscriptionArns.include?"c1"
+    $SNS.publish(topic_arn: get_arn(topic), message: message, message_attributes: attributes)
+  else
+    puts "error"
+    end
+  end
 
 When(/^I publish a message "([^"]*)" to TopicArn "([^"]*)"$/) do |message, topic_arn|
   begin
