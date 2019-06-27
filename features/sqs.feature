@@ -62,11 +62,7 @@ Feature: SQS Integration
     When I publish "Hello Test" to topic "test4" with attributes:
       | Name       | Data Type | String Value |
       | cluster    | String    | c1           |
-    Then The publish request should be successful
-    And I wait for 1 seconds
-    And I get the message in queue "http://sqs:4576/queue/local-catalog-updates-etl-prr-c1-high"
-    Then the message body should be:
-    """
-    Hello Test
-    """
-    And the message attribute "cluster" should be "c1"
+    And the "FilterPolicy" does not match message with attributes:
+      | Name       | Data Type | String Value |
+      | cluster    | String    | c1           |
+    Then The publish request should not be successful
