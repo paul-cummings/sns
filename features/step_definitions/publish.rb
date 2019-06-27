@@ -26,12 +26,12 @@ When(/^I publish "([^"]*)" to topic "([^"]*)" with attributes:$/) do |message, t
     }
   end
   @response = $SNS.get_subscription_attributes({subscription_arn: @namedSubscriptionArns[name]})
-  if @namedSubscriptionArns.include?"c1"
+  if @namedSubscriptionArns[name].include?"c1"
     $SNS.publish(topic_arn: get_arn(topic), message: message, message_attributes: attributes)
   else
     puts "error"
-    end
   end
+end
 
 When(/^I publish a message "([^"]*)" to TopicArn "([^"]*)"$/) do |message, topic_arn|
   begin
