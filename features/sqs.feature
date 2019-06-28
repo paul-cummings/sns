@@ -54,15 +54,3 @@ Feature: SQS Integration
     """
     And the message attribute "Trace-Id" should be "123456"
     And the message attribute "Logging-Id" should be "EFGADBC"
-
-  Scenario: Filter Policy
-    Given I create a new topic "test4"
-    And I subscribe endpoint "aws-sqs://local-catalog-updates-etl-prr-c1-high?amazonSQSEndpoint=http://sqs:4576&accessKey=&secretKey=" with protocol "sqs" to topic "test4" as "subscription"
-    And I set "FilterPolicy" for "subscription" to "c1"
-    When I publish "Hello Test" to topic "test4" with attributes:
-      | Name       | Data Type | String Value |
-      | cluster    | String    | c1           |
-    And the "FilterPolicy" does not match message with attributes:
-      | Name       | Data Type | String Value |
-      | cluster    | String    | c1           |
-    Then The publish request should not be successful
